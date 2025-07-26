@@ -1,18 +1,85 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ColorPickerTool } from "@/components/color-picker-tool";
-import { Palette, Sparkles, Download, Star, Users, Zap } from "lucide-react";
+import { Palette, Sparkles, Download, Star, Users, Zap, LogIn, LogOut, User } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-image.jpg";
 
 const Index = () => {
+  const { user, signOut, loading } = useAuth();
+  const navigate = useNavigate();
+
   const scrollToColorPicker = () => {
     document.getElementById('color-picker')?.scrollIntoView({ 
       behavior: 'smooth' 
     });
   };
 
+  const handleAuthAction = () => {
+    if (user) {
+      signOut();
+    } else {
+      navigate('/auth');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-subtle flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+            <Palette className="w-8 h-8 text-primary-foreground" />
+          </div>
+          <p className="text-muted-foreground">Loading HueHive Studio...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      {/* Navigation Header */}
+      <header className="relative z-10 border-b border-border/50 bg-background/80 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
+                <Palette className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <span className="text-xl font-bold text-foreground">HueHive Studio</span>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              {user && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <User className="w-4 h-4" />
+                  <span>Welcome back!</span>
+                </div>
+              )}
+              
+              <Button
+                onClick={handleAuthAction}
+                variant={user ? "outline" : "default"}
+                className={user ? "bg-background/50" : "bg-gradient-primary text-primary-foreground shadow-glow"}
+              >
+                {user ? (
+                  <>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </>
+                ) : (
+                  <>
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Sign In
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -47,14 +114,17 @@ const Index = () => {
                 Start Picking Colors
               </Button>
               
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-lg px-8 py-6 bg-background/50 backdrop-blur-sm border-primary/20"
-              >
-                <Download className="w-6 h-6 mr-2" />
-                View Premium
-              </Button>
+              {!user && (
+                <Button
+                  onClick={() => navigate('/auth')}
+                  variant="outline"
+                  size="lg"
+                  className="text-lg px-8 py-6 bg-background/50 backdrop-blur-sm border-primary/20"
+                >
+                  <User className="w-6 h-6 mr-2" />
+                  Join Free
+                </Button>
+              )}
             </div>
           </div>
         </div>
