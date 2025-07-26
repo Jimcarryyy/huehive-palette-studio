@@ -2,41 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* HueHive Palette Studio Design System - Vibrant color picker theme
+All colors MUST be HSL for perfect color manipulation
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Background system - clean white to dark gradient */
+    --background: 0 0% 99%;
+    --foreground: 270 15% 12%;
 
+    /* Card system - floating glass effect */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 270 15% 12%;
 
+    /* Popover system */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 270 15% 12%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary system - vibrant purple to pink gradient theme */
+    --primary: 270 91% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 300 100% 80%;
+    
+    /* Secondary system - soft purple tones */
+    --secondary: 280 25% 96%;
+    --secondary-foreground: 270 15% 25%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Muted system - subtle grays with purple tint */
+    --muted: 270 10% 96%;
+    --muted-foreground: 270 8% 50%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Accent system - bright cyan for highlights */
+    --accent: 180 100% 70%;
+    --accent-foreground: 270 15% 12%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Destructive system */
+    --destructive: 0 84% 65%;
+    --destructive-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Interactive elements */
+    --border: 270 15% 85%;
+    --input: 270 15% 93%;
+    --ring: 270 91% 65%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --radius: 0.75rem;
 
-    --radius: 0.5rem;
+    /* Color picker specific design tokens */
+    --gradient-rainbow: linear-gradient(90deg, 
+      hsl(0 100% 65%), hsl(60 100% 65%), hsl(120 100% 65%), 
+      hsl(180 100% 65%), hsl(240 100% 65%), hsl(300 100% 65%));
+    
+    --gradient-primary: linear-gradient(135deg, 
+      hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    
+    --gradient-subtle: linear-gradient(180deg, 
+      hsl(var(--background)) 0%, hsl(270 10% 97%) 100%);
+      
+    --shadow-glow: 0 10px 40px -10px hsl(var(--primary) / 0.3);
+    --shadow-color: 0 4px 20px hsl(var(--primary) / 0.15);
+    
+    /* Animation variables */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
